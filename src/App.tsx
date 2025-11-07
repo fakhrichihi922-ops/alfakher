@@ -1,8 +1,41 @@
-export default function App() {
-  return (
-    <div style={{ textAlign: "center", marginTop: "4rem" }}>
-      <h1>Welcome to Al-Fakher Trust 🌿</h1>
-      <p>Your Vite + React + TypeScript project is running successfully!</p>
-    </div>
-  );
-}
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Feed from "./pages/Feed";
+import Charities from "./pages/Charities";
+import CharityDetail from "./pages/CharityDetail";
+import Profile from "./pages/Profile";
+import ProofViewer from "./pages/ProofViewer";
+import NotFound from "./pages/NotFound";
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/charities" element={<Charities />} />
+          <Route path="/charities/:id" element={<CharityDetail />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/proof/:id" element={<ProofViewer />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default App;
